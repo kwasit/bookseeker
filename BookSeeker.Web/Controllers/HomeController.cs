@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using BookSeeker.Engine.Services;
 using BookSeeker.Web.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace BookSeeker.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IBookSearchService _bookSearchService;
+
+        public HomeController(IBookSearchService bookSearchService)
+        {
+            _bookSearchService = bookSearchService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -32,6 +36,13 @@ namespace BookSeeker.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult SearchBook()
+        {
+            _bookSearchService.SearchByTitleAsync("mvc");
+
+            return RedirectToAction("Index");
         }
     }
 }
