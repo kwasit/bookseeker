@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookSeeker.Provider.Amazon;
+using BookSeeker.Provider.Foo;
 using BookSeeker.Provider.Google;
 
 namespace BookSeeker.Providers
@@ -10,6 +11,7 @@ namespace BookSeeker.Providers
         {
             builder.RegisterModule<AmazonProviderModule>();
             builder.RegisterModule<GoogleProviderModule>();
+            builder.RegisterModule<FooProviderModule>();
         }
     }
 }

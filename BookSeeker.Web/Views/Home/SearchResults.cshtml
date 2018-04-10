@@ -1,0 +1,25 @@
+﻿@model SearchResultsViewModel
+
+@{
+    ViewData["Title"] = "SearchResults";
+}
+
+<h2>Search results</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">For text: @Model.SearchText</div>
+    <div class="panel-body">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col-lg-12">
+                <div><strong>@item.Title</strong></div><span>isbn: @item.Isbn</span>
+                <div>@string.Join(", ", item.Authors)</div>
+                @foreach (var provider in item.Providers)
+                {
+                    <span class="label label-default">@provider</span>
+                }
+                <hr/>
+            </div>
+        }
+    </div>
+</div>

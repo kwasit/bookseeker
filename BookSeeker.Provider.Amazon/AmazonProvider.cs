@@ -2,6 +2,7 @@
 using BookSeeker.Providers.Common.Models;
 using Nager.AmazonProductAdvertising;
 using Nager.AmazonProductAdvertising.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookSeeker.Provider.Amazon
@@ -15,16 +16,18 @@ namespace BookSeeker.Provider.Amazon
             _amazonWrapper = amazonWrapper;
         }
 
-        public async Task<SearchResult> SearchByTitleAsync(string title)
+        public string Name => "amazon";
+
+        public async Task<IEnumerable<ProviderBookSearchItem>> SearchByTitleAsync(string title)
         {
             var response = await _amazonWrapper.SearchAsync(title, AmazonSearchIndex.Books, AmazonResponseGroup.Small);
-            return new SearchResult();
+            return new List<ProviderBookSearchItem>();
         }
 
-        public async Task<SearchOffersResult> SearchOffersByIsbnAsync(string isbn)
+        public async Task<ProviderBookOffer> SearchOffersByIsbnAsync(string isbn)
         {
             var response = await _amazonWrapper.SearchAsync(isbn, AmazonSearchIndex.Books, AmazonResponseGroup.Offers);
-            return new SearchOffersResult();
+            return new ProviderBookOffer();
         }
     }
 }

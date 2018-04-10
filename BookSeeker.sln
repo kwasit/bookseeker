@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{74D5053B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeeker.Common", "BookSeeker.Common\BookSeeker.Common.csproj", "{131ECC96-DCB9-4FA2-B700-10C72D593904}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeeker.Provider.Foo", "BookSeeker.Provider.Foo\BookSeeker.Provider.Foo.csproj", "{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{131ECC96-DCB9-4FA2-B700-10C72D593904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{131ECC96-DCB9-4FA2-B700-10C72D593904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{131ECC96-DCB9-4FA2-B700-10C72D593904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{ED5FB89C-13B7-4F27-A888-5C883094BF2B} = {3896AF57-34BB-43EA-998D-3965D37A60BB}
 		{FD2CC728-DEA9-40C0-9A4D-740DCD78F411} = {3896AF57-34BB-43EA-998D-3965D37A60BB}
 		{131ECC96-DCB9-4FA2-B700-10C72D593904} = {73924D60-BB3A-41CB-A193-A1E34C6F1FFD}
+		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91} = {3896AF57-34BB-43EA-998D-3965D37A60BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {190C0E3C-19AE-40FD-AAFF-36CEAF9A3984}

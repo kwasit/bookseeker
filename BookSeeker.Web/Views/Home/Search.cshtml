@@ -1,0 +1,12 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Search";
+}
+
+
+@*<span class="input-group-addon"><i class="fa fa-search fa-lg"></i></span>*@
+<form asp-action="SearchBook" method="get">
+    <input name="text" type="text" class="form-control input-lg" placeholder="Search books by title or isbn..." />
+    <button type="submit">Search</button>
+</form>
+

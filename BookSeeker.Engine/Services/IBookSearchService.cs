@@ -1,7 +1,13 @@
-﻿namespace BookSeeker.Engine.Services
+﻿using BookSeeker.Common;
+using BookSeeker.Engine.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace BookSeeker.Engine.Services
 {
     public interface IBookSearchService
     {
-        void SearchByTitleAsync(string title);
+        Task<ServiceResult<IEnumerable<BookSearchItem>>> SearchByTitleAsync(string title);
+        Task<ServiceResult<IEnumerable<BookOffer>>> SearchBookOffersAsync(string isbn, IEnumerable<string> providers);
     }
 }
