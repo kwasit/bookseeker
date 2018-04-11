@@ -40,8 +40,8 @@ namespace BookSeeker.Engine.Services
                         return new BookSearchItem
                         {
                             Isbn = id,
-                            Title = itemsList.First().Title,
-                            Authors = itemsList.First().Authors,
+                            Title = itemsList.FirstOrDefault()?.Title,
+                            Authors = itemsList.FirstOrDefault()?.Authors,
                             Providers = itemsList.Select(p => p.Provider)
                         };
                     })
@@ -57,17 +57,18 @@ namespace BookSeeker.Engine.Services
             }
         }
 
-        public async Task<ServiceResult<IEnumerable<BookOffer>>> SearchBookOffersAsync(string isbn, IEnumerable<string> providers)
+        public async Task<ServiceResult<IEnumerable<BookOffer>>> SearchBookOffersAsync(string isbn)
         {
             try
             {
                 var tasks = _bookDataProviders
-                    .Where(x => providers.Contains(x.Name))
                     .Select(x => x.SearchOffersByIsbnAsync(isbn));
 
                 var offerResults = await Task.WhenAll(tasks);
 
-                var offers = _mapper.Map<IEnumerable<BookOffer>>(offerResults);
+                var offersWithPrices = offerResults.Where(x => x.Price.HasValue).ToList();
+
+                var offers = _mapper.Map<IEnumerable<BookOffer>>(offersWithPrices);
 
                 return ServiceResult<IEnumerable<BookOffer>>.Success(offers);
             }

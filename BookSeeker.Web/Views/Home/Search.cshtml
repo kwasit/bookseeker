@@ -4,9 +4,22 @@
 }
 
 
-@*<span class="input-group-addon"><i class="fa fa-search fa-lg"></i></span>*@
 <form asp-action="SearchBook" method="get">
-    <input name="text" type="text" class="form-control input-lg" placeholder="Search books by title or isbn..." />
-    <button type="submit">Search</button>
+    <div class="input-group">
+        <input name="text" type="text" class="form-control input-lg" placeholder="Search books by title or isbn..." />
+        <span class="input-group-btn">
+            <button class="btn btn-lg btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> Go</button>
+        </span>
+    </div>
 </form>
+<br />
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <div asp-validation-summary="All"></div>
+    </div>
+}
+
+
 

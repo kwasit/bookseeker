@@ -1,0 +1,24 @@
+﻿@model SearchOffersViewModel
+
+@{
+    ViewData["Title"] = "Offers";
+}
+
+<h2>Offers</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>@Model.Title</strong>&nbsp;isbn: @Model.Isbn
+    </div>
+    <div class="panel-body">
+        @foreach (var item in Model.Offers)
+        {
+            <div class="col-lg-12">
+                <span class="label label-default">@item.Provider</span>
+                <span><strong>@item.PriceFormat</strong>&nbsp;</span>
+                <span><a href="@item.Url">Go to offer</a></span>
+            </div>
+            <div class="clearfix"></div>
+        }
+    </div>
+</div>

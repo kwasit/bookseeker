@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using BookSeeker.CurrencyConvert;
 using BookSeeker.Engine.Services;
 using BookSeeker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookSeeker.Web.Controllers
@@ -12,11 +14,13 @@ namespace BookSeeker.Web.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IBookSearchService _bookSearchService;
+        private readonly ICurrencyConvertClient _currencyConvertClient;
 
-        public HomeController(IBookSearchService bookSearchService, IMapper mapper)
+        public HomeController(IBookSearchService bookSearchService, IMapper mapper, ICurrencyConvertClient currencyConvertClient)
         {
             _bookSearchService = bookSearchService;
             _mapper = mapper;
+            _currencyConvertClient = currencyConvertClient;
         }
 
         [HttpGet]
@@ -30,14 +34,16 @@ namespace BookSeeker.Web.Controllers
         {
             if (string.IsNullOrEmpty(text))
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError(string.Empty, "Search text is required.");
+                return View("Search");
             }
 
             var searchResult = await _bookSearchService.SearchByTitleAsync(text);
 
             if (!searchResult.Succeeded)
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError(string.Empty, "Something went wrong. Sorry...");
+                return View("Search");
             }
 
             var resultsViewModel = new SearchResultsViewModel
@@ -54,12 +60,27 @@ namespace BookSeeker.Web.Controllers
         {
             if (string.IsNullOrEmpty(isbn))
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError(string.Empty, "Isbn is required.");
+                return View("Search");
             }
 
             var searchResult = await _bookSearchService.SearchBookOffersAsync(isbn);
 
+            if (!searchResult.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Something went wrong. Sorry...");
+                return View("Search");
+            }
 
+            var offersViewModel = new SearchOffersViewModel
+            {
+                Isbn = isbn,
+                Title = searchResult.Data.FirstOrDefault()?.Title,
+                Offers = _mapper.Map<IEnumerable<SearchOffersViewModel.OfferItem>>(searchResult.Data)
+            };
+
+
+            return View("SearchOffers", offersViewModel);
         }
 
         public IActionResult Error()

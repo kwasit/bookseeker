@@ -4,7 +4,7 @@
     ViewData["Title"] = "SearchResults";
 }
 
-<h2>Search results</h2>
+<h2><span class="glyphicon glyphicon-align-justify"></span> Search results</h2>
 
 <div class="panel panel-default">
     <div class="panel-heading">For text: @Model.SearchText</div>
@@ -12,13 +12,19 @@
         @foreach (var item in Model.Items)
         {
             <div class="col-lg-12">
-                <div><strong>@item.Title</strong></div><span>isbn: @item.Isbn</span>
+                <div class="pull-left"><strong>@item.Title</strong></div>
+                <a class="pull-right" asp-action="SearchBookOffers" asp-route-isbn="@item.Isbn">Check offers</a>
+                <div class="clearfix"></div>
+                <div>isbn: @item.Isbn</div>
                 <div>@string.Join(", ", item.Authors)</div>
                 @foreach (var provider in item.Providers)
                 {
                     <span class="label label-default">@provider</span>
                 }
-                <hr/>
+                @if (Model.Items.Count() > 1)
+                {
+                    <hr />
+                }
             </div>
         }
     </div>

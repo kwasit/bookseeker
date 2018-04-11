@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeeker.Providers.Common
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{74D5053B-48B0-44F8-9A50-B368CC490AE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeeker.Common", "BookSeeker.Common\BookSeeker.Common.csproj", "{131ECC96-DCB9-4FA2-B700-10C72D593904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeeker.Common", "BookSeeker.Common\BookSeeker.Common.csproj", "{131ECC96-DCB9-4FA2-B700-10C72D593904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeeker.Provider.Foo", "BookSeeker.Provider.Foo\BookSeeker.Provider.Foo.csproj", "{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSeeker.Provider.Foo", "BookSeeker.Provider.Foo\BookSeeker.Provider.Foo.csproj", "{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSeeker.CurrencyConvert", "BookSeeker.CurrencyConvert\BookSeeker.CurrencyConvert.csproj", "{FBFAE24D-7BE3-40CA-B09C-4CBA58ABC9CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBFAE24D-7BE3-40CA-B09C-4CBA58ABC9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFAE24D-7BE3-40CA-B09C-4CBA58ABC9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFAE24D-7BE3-40CA-B09C-4CBA58ABC9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFAE24D-7BE3-40CA-B09C-4CBA58ABC9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{FD2CC728-DEA9-40C0-9A4D-740DCD78F411} = {3896AF57-34BB-43EA-998D-3965D37A60BB}
 		{131ECC96-DCB9-4FA2-B700-10C72D593904} = {73924D60-BB3A-41CB-A193-A1E34C6F1FFD}
 		{BBE43C60-416A-4D98-8DA7-7B98B27F6E91} = {3896AF57-34BB-43EA-998D-3965D37A60BB}
+		{FBFAE24D-7BE3-40CA-B09C-4CBA58ABC9CD} = {73924D60-BB3A-41CB-A193-A1E34C6F1FFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {190C0E3C-19AE-40FD-AAFF-36CEAF9A3984}
