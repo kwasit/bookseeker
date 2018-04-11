@@ -16,7 +16,7 @@ namespace BookSeeker.Provider.Amazon
         private readonly ILogger<AmazonProvider> _logger;
         private readonly IConfiguration _configuration;
 
-        public AmazonProvider( ILogger<AmazonProvider> logger, IConfiguration configuration)
+        public AmazonProvider(ILogger<AmazonProvider> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
@@ -29,7 +29,19 @@ namespace BookSeeker.Provider.Amazon
             try
             {
                 var response = await AmazonWrapper.SearchAsync(title, AmazonSearchIndex.Books, AmazonResponseGroup.Small);
-                return new List<ProviderBookSearchItem>();
+
+                return response.Items.Item
+                    .Select(x => new ProviderBookSearchItem
+                    {
+                        Title = x.ItemAttributes.Title,
+                        Isbn = new IsbnData
+                        {
+                            Id10Digits = x.ItemAttributes.ISBN
+                        },
+                        Authors = x.ItemAttributes.Author,
+                        Provider = Name
+                    })
+                    .ToList();
             }
             catch (Exception e)
             {
@@ -43,7 +55,20 @@ namespace BookSeeker.Provider.Amazon
             try
             {
                 var response = await AmazonWrapper.SearchAsync(isbn, AmazonSearchIndex.Books, AmazonResponseGroup.Offers);
-                return new ProviderBookOffer();
+
+                var item = response.Items.Item.FirstOrDefault();
+                var itemOffer = item.Offers.Offer.FirstOrDefault();
+                var itemOfferListing = itemOffer.OfferListing.FirstOrDefault();
+
+                return new ProviderBookOffer
+                {
+                    Title = item.ItemAttributes.Title,
+                    Isbn = item.ItemAttributes.ISBN,
+                    Provider = Name,
+                    Price = decimal.Parse(itemOfferListing.Price.Amount),
+                    CurrencyCode = itemOfferListing.Price.CurrencyCode,
+                    Url = itemOfferListing.OfferListingId
+                };
             }
             catch (Exception e)
             {

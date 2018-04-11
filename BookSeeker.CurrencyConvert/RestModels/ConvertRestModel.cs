@@ -2,12 +2,11 @@
 
 namespace BookSeeker.CurrencyConvert.RestModels
 {
-    public class LatestRatesRestModel
+    public class ConvertRestModel
     {
         public bool Success { get; set; }
-        public long Timestamp { get; set; }
-        public string Base { get; set; }
+        public ConvertQueryRestModel Query { get; set; }
         public DateTime Date { get; set; }
-        public object Rates { get; set; }
+        public decimal Result { get; set; }
     }
 }

@@ -19,8 +19,8 @@ namespace BookSeeker.Common.Extensions
 
         public static string FormatCurrency(this decimal amount, string currencyCode)
         {
-            return ISOCurrenciesToCultureMap.TryGetValue(currencyCode, out var culture) 
-                ? string.Format(culture, "{0:C}", amount) 
+            return ISOCurrenciesToCultureMap.TryGetValue(currencyCode, out var culture)
+                ? string.Format(culture, "{0:C}", amount)
                 : amount.ToString("0.00");
         }
     }

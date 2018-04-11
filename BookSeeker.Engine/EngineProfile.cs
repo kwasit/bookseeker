@@ -6,9 +6,11 @@ namespace BookSeeker.Engine
 {
     public class EngineProfile : Profile
     {
-        protected EngineProfile()
+        public EngineProfile()
         {
-            CreateMap<ProviderBookOffer, BookOffer>();
+            CreateMap<ProviderBookOffer, BookOffer>()
+                .ForMember(d => d.OriginalPrice, e => e.MapFrom(s => new Money(s.CurrencyCode, s.Price.Value)))
+                .ForMember(d => d.LocalPrice, e => e.Ignore());
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BookSeeker.Web.Models
         public class OfferItem
         {
             public string PriceFormat { get; set; }
+            public string LocalPriceFormat { get; set; }
             public string Url { get; set; }
             public string Provider { get; set; }
         }

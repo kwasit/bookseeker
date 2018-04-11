@@ -2,6 +2,6 @@
 {
     public interface ICurrencyConvertClient
     {
-        decimal Convert(string baseCode, string targetCode, decimal amount);
+        decimal? Convert(string baseCode, string targetCode, decimal amount);
     }
 }

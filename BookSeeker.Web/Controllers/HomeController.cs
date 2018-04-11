@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BookSeeker.CurrencyConvert;
 using BookSeeker.Engine.Services;
 using BookSeeker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +13,11 @@ namespace BookSeeker.Web.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IBookSearchService _bookSearchService;
-        private readonly ICurrencyConvertClient _currencyConvertClient;
 
-        public HomeController(IBookSearchService bookSearchService, IMapper mapper, ICurrencyConvertClient currencyConvertClient)
+        public HomeController(IBookSearchService bookSearchService, IMapper mapper)
         {
             _bookSearchService = bookSearchService;
             _mapper = mapper;
-            _currencyConvertClient = currencyConvertClient;
         }
 
         [HttpGet]
@@ -78,7 +75,6 @@ namespace BookSeeker.Web.Controllers
                 Title = searchResult.Data.FirstOrDefault()?.Title,
                 Offers = _mapper.Map<IEnumerable<SearchOffersViewModel.OfferItem>>(searchResult.Data)
             };
-
 
             return View("SearchOffers", offersViewModel);
         }

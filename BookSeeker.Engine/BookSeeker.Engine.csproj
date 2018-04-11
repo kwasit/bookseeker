@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookSeeker.Common\BookSeeker.Common.csproj" />
+    <ProjectReference Include="..\BookSeeker.CurrencyConvert\BookSeeker.CurrencyConvert.csproj" />
     <ProjectReference Include="..\BookSeeker.Providers\BookSeeker.Providers.csproj" />
   </ItemGroup>
 

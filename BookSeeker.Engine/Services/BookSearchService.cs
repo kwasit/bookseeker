@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using BookSeeker.Common;
+using BookSeeker.Common.Extensions;
+using BookSeeker.CurrencyConvert;
 using BookSeeker.Engine.Models;
 using BookSeeker.Providers.Common;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,12 +18,18 @@ namespace BookSeeker.Engine.Services
         private readonly ILogger<BookSearchService> _logger;
         private readonly IMapper _mapper;
         private readonly IEnumerable<IBookDataProvider> _bookDataProviders;
+        private readonly ICurrencyConvertClient _currencyConvertClient;
 
-        public BookSearchService(IEnumerable<IBookDataProvider> bookDataProviders, ILogger<BookSearchService> logger, IMapper mapper)
+
+        public BookSearchService(IEnumerable<IBookDataProvider> bookDataProviders,
+            ILogger<BookSearchService> logger,
+            IMapper mapper,
+            ICurrencyConvertClient currencyConvertClient)
         {
             _bookDataProviders = bookDataProviders;
             _logger = logger;
             _mapper = mapper;
+            _currencyConvertClient = currencyConvertClient;
         }
 
         public async Task<ServiceResult<IEnumerable<BookSearchItem>>> SearchByTitleAsync(string title)
@@ -34,14 +43,14 @@ namespace BookSeeker.Engine.Services
 
                 var searchItems = searchResults
                     .SelectMany(x => x)
-                    .GroupBy(x => x.Isbn.Id10Digits, (id, items) =>
+                    .GroupBy(x => x.Isbn?.Id10Digits, (id, items) =>
                     {
                         var itemsList = items.ToList();
                         return new BookSearchItem
                         {
                             Isbn = id,
-                            Title = itemsList.FirstOrDefault()?.Title,
-                            Authors = itemsList.FirstOrDefault()?.Authors,
+                            Title = itemsList.First().Title,
+                            Authors = itemsList.First().Authors,
                             Providers = itemsList.Select(p => p.Provider)
                         };
                     })
@@ -68,7 +77,26 @@ namespace BookSeeker.Engine.Services
 
                 var offersWithPrices = offerResults.Where(x => x.Price.HasValue).ToList();
 
-                var offers = _mapper.Map<IEnumerable<BookOffer>>(offersWithPrices);
+                var offers = _mapper.Map<IEnumerable<BookOffer>>(offersWithPrices).ToList();
+
+                var localCurrencyCode = CultureInfo.CurrentCulture.GetCurrencyCode();
+
+                foreach (var offer in offers)
+                {
+                    if (offer.OriginalPrice.CurrencyCode == localCurrencyCode)
+                    {
+                        offer.LocalPrice = offer.OriginalPrice;
+                    }
+                    else
+                    {
+                        var convertedAmount = _currencyConvertClient.Convert(offer.OriginalPrice.CurrencyCode,
+                            localCurrencyCode, offer.OriginalPrice.Amount);
+
+                        offer.LocalPrice = convertedAmount.HasValue
+                            ? new Money(localCurrencyCode, convertedAmount.Value)
+                            : null;
+                    }
+                }
 
                 return ServiceResult<IEnumerable<BookOffer>>.Success(offers);
             }

@@ -7,7 +7,9 @@ namespace BookSeeker.Provider.Foo
     {
         protected override void Load(ContainerBuilder builder)
         {
+#if DEBUG
             builder.RegisterType<FooProvider>().As<IBookDataProvider>().InstancePerLifetimeScope();
+#endif
         }
     }
 }
