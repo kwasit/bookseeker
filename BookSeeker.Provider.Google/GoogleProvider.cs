@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BookSeeker.Provider.Google
 {
-    public class GoogleProvider : IBookDataProvider
+    public class GoogleProvider : IBookOffersDataProvider, IBookSearchDataProvider
     {
         private readonly ILogger<GoogleProvider> _logger;
         private readonly IConfiguration _configuration;

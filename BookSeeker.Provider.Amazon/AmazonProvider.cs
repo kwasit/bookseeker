@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BookSeeker.Provider.Amazon
 {
-    public class AmazonProvider : IBookDataProvider
+    public class AmazonProvider : IBookOffersDataProvider, IBookSearchDataProvider
     {
         private readonly ILogger<AmazonProvider> _logger;
         private readonly IConfiguration _configuration;

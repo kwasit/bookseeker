@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookSeeker.Provider.Amazon\BookSeeker.Provider.Amazon.csproj" />
-    <ProjectReference Include="..\BookSeeker.Provider.Foo\BookSeeker.Provider.Foo.csproj" />
+    <ProjectReference Include="..\BookSeeker.Provider.Apress\BookSeeker.Provider.Apress.csproj" />
     <ProjectReference Include="..\BookSeeker.Provider.Google\BookSeeker.Provider.Google.csproj" />
     <ProjectReference Include="..\BookSeeker.Providers.Common\BookSeeker.Providers.Common.csproj" />
   </ItemGroup>

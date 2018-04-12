@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BookSeeker.Provider.Foo
 {
-    public class FooProvider : IBookDataProvider
+    public class FooProvider : IOffersBookDataProvider, ISearchBookDataProvider
     {
         public string Name => "foo";
 

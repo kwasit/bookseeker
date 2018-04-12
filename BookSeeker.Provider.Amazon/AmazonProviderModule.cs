@@ -8,7 +8,8 @@ namespace BookSeeker.Provider.Amazon
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AmazonProvider>().As<IBookDataProvider>().InstancePerLifetimeScope();
+            builder.RegisterType<AmazonProvider>().As<IBookSearchDataProvider>().InstancePerLifetimeScope();
+            builder.RegisterType<AmazonProvider>().As<IBookOffersDataProvider>().InstancePerLifetimeScope();
         }
     }
 }

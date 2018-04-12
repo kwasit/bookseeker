@@ -17,26 +17,29 @@ namespace BookSeeker.Engine.Services
     {
         private readonly ILogger<BookSearchService> _logger;
         private readonly IMapper _mapper;
-        private readonly IEnumerable<IBookDataProvider> _bookDataProviders;
+        private readonly IEnumerable<IBookSearchDataProvider> _bookSearchDataProviders;
+        private readonly IEnumerable<IBookOffersDataProvider> _bookOffersDataProviders;
         private readonly ICurrencyConvertClient _currencyConvertClient;
 
 
-        public BookSearchService(IEnumerable<IBookDataProvider> bookDataProviders,
+        public BookSearchService(IEnumerable<IBookSearchDataProvider> bookSearchDataProviders,
             ILogger<BookSearchService> logger,
             IMapper mapper,
-            ICurrencyConvertClient currencyConvertClient)
+            ICurrencyConvertClient currencyConvertClient, 
+            IEnumerable<IBookOffersDataProvider> bookOffersDataProviders)
         {
-            _bookDataProviders = bookDataProviders;
+            _bookSearchDataProviders = bookSearchDataProviders;
             _logger = logger;
             _mapper = mapper;
             _currencyConvertClient = currencyConvertClient;
+            _bookOffersDataProviders = bookOffersDataProviders;
         }
 
         public async Task<ServiceResult<IEnumerable<BookSearchItem>>> SearchByTitleAsync(string title)
         {
             try
             {
-                var tasks = _bookDataProviders
+                var tasks = _bookSearchDataProviders
                     .Select(x => x.SearchByTitleAsync(title));
 
                 var searchResults = await Task.WhenAll(tasks);
@@ -70,7 +73,7 @@ namespace BookSeeker.Engine.Services
         {
             try
             {
-                var tasks = _bookDataProviders
+                var tasks = _bookOffersDataProviders
                     .Select(x => x.SearchOffersByIsbnAsync(isbn));
 
                 var offerResults = await Task.WhenAll(tasks);
